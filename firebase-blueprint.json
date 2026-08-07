@@ -1,0 +1,222 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Registered Hydro-GIS researcher profiles",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["ADMIN", "RESEARCHER", "FIELD_SURVEYOR", "VIEWER"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "email", "displayName", "role"]
+    },
+    "projects": {
+      "title": "Research Project",
+      "description": "Hydrogeological study projects",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "description": { "type": "string" },
+        "leadResearcher": { "type": "string" },
+        "location": { "type": "string" },
+        "areaSqKm": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["name", "code", "leadResearcher"]
+    },
+    "studyAreas": {
+      "title": "Study Area / Watershed",
+      "description": "Geographic study regions",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "code": { "type": "string" },
+        "areaSqKm": { "type": "number" },
+        "perimeterKm": { "type": "number" },
+        "averageSlope": { "type": "number" },
+        "annualRainfallMm": { "type": "number" },
+        "geologyOverview": { "type": "string" },
+        "bounds": { "type": "array" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["projectId", "name", "areaSqKm"]
+    },
+    "wells": {
+      "title": "Groundwater Well",
+      "description": "Monitoring and production wells",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "studyAreaId": { "type": "string" },
+        "wellId": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "wellType": { "type": "string" },
+        "depthM": { "type": "number" },
+        "diameterMm": { "type": "number" },
+        "aquiferType": { "type": "string" },
+        "yieldLps": { "type": "number" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["projectId", "wellId", "lat", "lng"]
+    },
+    "wellMeasurements": {
+      "title": "Well Level Measurement",
+      "description": "Periodic water level monitoring records",
+      "type": "object",
+      "properties": {
+        "wellId": { "type": "string" },
+        "date": { "type": "string" },
+        "season": { "type": "string" },
+        "staticWaterLevelM": { "type": "number" },
+        "pumpingWaterLevelM": { "type": "number" },
+        "yieldLps": { "type": "number" },
+        "remarks": { "type": "string" }
+      },
+      "required": ["wellId", "date", "staticWaterLevelM"]
+    },
+    "soilSamples": {
+      "title": "Soil Sample",
+      "description": "Field soil observations and sampling",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "sampleId": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "depthCm": { "type": "number" },
+        "texture": { "type": "string" },
+        "color": { "type": "string" },
+        "structure": { "type": "string" },
+        "moisture": { "type": "string" },
+        "landUse": { "type": "string" },
+        "date": { "type": "string" }
+      },
+      "required": ["projectId", "sampleId", "lat", "lng"]
+    },
+    "soilLabResults": {
+      "title": "Soil Laboratory Results",
+      "description": "Physico-chemical laboratory analysis",
+      "type": "object",
+      "properties": {
+        "sampleId": { "type": "string" },
+        "ph": { "type": "number" },
+        "ec": { "type": "number" },
+        "organicCarbonPercent": { "type": "number" },
+        "nitrogenMgKg": { "type": "number" },
+        "phosphorusMgKg": { "type": "number" },
+        "potassiumMgKg": { "type": "number" },
+        "verified": { "type": "boolean" },
+        "labName": { "type": "string" },
+        "testDate": { "type": "string" }
+      },
+      "required": ["sampleId", "ph", "ec"]
+    },
+    "ertSurveys": {
+      "title": "Electrical Resistivity Tomography Survey",
+      "description": "Geophysical ERT profile metadata",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "profileName": { "type": "string" },
+        "electrodeSpacingM": { "type": "number" },
+        "electrodeCount": { "type": "number" },
+        "method": { "type": "string" },
+        "surveyDate": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["projectId", "profileName", "electrodeSpacingM"]
+    },
+    "references": {
+      "title": "Scientific Reference",
+      "description": "Published literature and field studies",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "authors": { "type": "string" },
+        "organization": { "type": "string" },
+        "year": { "type": "number" },
+        "journal": { "type": "string" },
+        "doiUrl": { "type": "string" },
+        "citation": { "type": "string" },
+        "coverage": { "type": "string" },
+        "keywords": { "type": "array" }
+      },
+      "required": ["title", "authors", "year"]
+    },
+    "ahpAnalyses": {
+      "title": "AHP Decision Support Run",
+      "description": "Analytic Hierarchy Process weighted overlay configuration and output",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "name": { "type": "string" },
+        "criteria": { "type": "array" },
+        "weights": { "type": "object" },
+        "consistencyIndex": { "type": "number" },
+        "consistencyRatio": { "type": "number" },
+        "classes": { "type": "object" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["projectId", "name", "criteria", "weights"]
+    },
+    "marSites": {
+      "title": "MAR Site Candidate",
+      "description": "Managed Aquifer Recharge site selection candidate",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "siteName": { "type": "string" },
+        "lat": { "type": "number" },
+        "lng": { "type": "number" },
+        "suitability": { "type": "string" },
+        "recommendedStructure": { "type": "string" },
+        "researcherApproved": { "type": "boolean" },
+        "slopePercent": { "type": "number" },
+        "soilPermeability": { "type": "string" },
+        "waterAvailability": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["projectId", "siteName", "lat", "lng", "suitability"]
+    },
+    "researchNotes": {
+      "title": "Research Notebook Entry",
+      "description": "Scientific hypothesis, observations and findings",
+      "type": "object",
+      "properties": {
+        "projectId": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "observation": { "type": "string" },
+        "hypothesis": { "type": "string" },
+        "method": { "type": "string" },
+        "result": { "type": "string" },
+        "conclusion": { "type": "string" },
+        "date": { "type": "string" },
+        "author": { "type": "string" }
+      },
+      "required": ["projectId", "title", "observation"]
+    },
+    "auditLogs": {
+      "title": "Audit Log Record",
+      "description": "System activity and provenance tracker",
+      "type": "object",
+      "properties": {
+        "userEmail": { "type": "string" },
+        "action": { "type": "string" },
+        "targetCollection": { "type": "string" },
+        "targetId": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "details": { "type": "string" }
+      },
+      "required": ["action", "timestamp"]
+    }
+  }
+}

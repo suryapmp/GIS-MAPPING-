@@ -1,0 +1,10 @@
+{
+  "name": "HYDRO-GIS",
+  "description": "Integrated Hydrogeological GIS Research & Groundwater Decision Support Platform",
+  "requestFramePermissions": [
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
