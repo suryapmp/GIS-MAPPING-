@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHydroStore } from '../stores/useHydroStore';
 import { TestTube, Plus, CheckCircle2, ShieldCheck } from 'lucide-react';
+import { BatchPhotoUploader } from '../components/common/BatchPhotoUploader';
 
 export const SoilLabDataPage: React.FC = () => {
-  const { soilLabResults, soilSamples, addSoilLabResult } = useHydroStore();
+  const { soilLabResults, soilSamples, addSoilLabResult, logSystemAction } = useHydroStore();
   const [showModal, setShowModal] = useState(false);
 
   const [sampleId, setSampleId] = useState(soilSamples[0]?.sampleId || 'SMP-PLR-A1');
@@ -116,6 +117,14 @@ export const SoilLabDataPage: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Batch Photo Uploads */}
+      <BatchPhotoUploader
+        moduleTitle="Module 9: Soil Laboratory Analytical Setups & Specimen Photos"
+        onPhotosUploaded={(photos) => {
+          logSystemAction('UPLOAD_BATCH_PHOTOS', 'soilLabData', `Uploaded ${photos.length} photos for lab equipment & specimen documentation.`);
+        }}
+      />
 
       {/* Modal */}
       {showModal && (

@@ -48,9 +48,9 @@ const NAV_GROUPS: NavGroup[] = [
   {
     title: 'GIS Workspace',
     items: [
+      { id: 'dataImport', label: '6. Data Import', icon: UploadCloud },
       { id: 'map', label: '4. GIS Map', icon: Map },
-      { id: 'layers', label: '5. GIS Layer Manager', icon: Layers },
-      { id: 'dataImport', label: '6. Data Import', icon: UploadCloud }
+      { id: 'layers', label: '5. GIS Layer Manager', icon: Layers }
     ]
   },
   {
@@ -100,12 +100,12 @@ export const Sidebar: React.FC = () => {
 
   return (
     <aside
-      className={`bg-slate-900 border-r border-slate-800 text-slate-300 transition-all duration-300 flex flex-col z-40 ${
+      className={`bg-slate-900 border-r border-slate-800 text-slate-300 transition-all duration-300 flex flex-col h-full flex-shrink-0 z-40 ${
         collapsed ? 'w-16' : 'w-64'
       }`}
     >
       {/* Collapse Toggle Button */}
-      <div className="p-3 border-b border-slate-800 flex items-center justify-between text-xs font-semibold text-slate-400">
+      <div className="p-3 border-b border-slate-800 flex items-center justify-between text-xs font-semibold text-slate-400 flex-shrink-0">
         {!collapsed && <span className="uppercase tracking-wider font-mono text-[11px]">Research Modules (25)</span>}
         <button
           onClick={() => setCollapsed(!collapsed)}
@@ -116,8 +116,8 @@ export const Sidebar: React.FC = () => {
         </button>
       </div>
 
-      {/* Navigation List */}
-      <div className="flex-1 overflow-y-auto p-2 space-y-4 text-xs scrollbar-thin scrollbar-thumb-slate-800">
+      {/* Navigation List - Localized Scrollbar */}
+      <div className="flex-1 overflow-y-auto p-2 space-y-4 text-xs scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent max-h-full">
         {NAV_GROUPS.map((group, gIdx) => (
           <div key={gIdx}>
             {!collapsed && (
@@ -128,7 +128,7 @@ export const Sidebar: React.FC = () => {
             <div className="space-y-0.5">
               {group.items.map((item) => {
                 const Icon = item.icon;
-                const isActive = activeModuleTab === item.id;
+                const isActive = activeModuleTab === item.id || (item.id === 'soilSamples' && activeModuleTab === 'soil') || (item.id === 'soilLabData' && activeModuleTab === 'soilLab');
                 return (
                   <button
                     key={item.id}

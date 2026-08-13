@@ -24,6 +24,7 @@ import { GwpzPage } from './pages/GwpzPage';
 import { ValidationPage } from './pages/ValidationPage';
 import { MarPage } from './pages/MarPage';
 import { ReportsPage } from './pages/ReportsPage';
+import { SystemLogsPage } from './pages/SystemLogsPage';
 
 export default function App() {
   const { activeModuleTab } = useHydroStore();
@@ -45,8 +46,10 @@ export default function App() {
       case 'fieldSurvey':
         return <FieldSurveyPage />;
       case 'soil':
+      case 'soilSamples':
         return <SoilModulePage />;
       case 'soilLab':
+      case 'soilLabData':
         return <SoilLabDataPage />;
       case 'wells':
         return <WellsModulePage />;
@@ -70,17 +73,19 @@ export default function App() {
         return <MarPage />;
       case 'reports':
         return <ReportsPage />;
+      case 'admin':
+        return <SystemLogsPage />;
       default:
         return <DashboardPage />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
+    <div className="h-screen max-h-screen w-screen overflow-hidden bg-slate-950 text-slate-100 font-sans flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950">
       <Navbar />
-      <div className="flex flex-1 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden h-[calc(100vh-3.5rem)]">
         <Sidebar />
-        <main className="flex-1 overflow-y-auto bg-slate-950">
+        <main className="flex-1 overflow-y-auto h-full bg-slate-950">
           {renderActiveModule()}
         </main>
       </div>

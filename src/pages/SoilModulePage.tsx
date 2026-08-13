@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHydroStore } from '../stores/useHydroStore';
 import { FlaskConical, Plus, MapPin, Calendar, FileText } from 'lucide-react';
+import { BatchPhotoUploader } from '../components/common/BatchPhotoUploader';
 
 export const SoilModulePage: React.FC = () => {
-  const { soilSamples, addSoilSample, activeProjectId } = useHydroStore();
+  const { soilSamples, addSoilSample, activeProjectId, logSystemAction } = useHydroStore();
   const [showModal, setShowModal] = useState(false);
 
   const [sampleId, setSampleId] = useState('');
@@ -90,6 +91,14 @@ export const SoilModulePage: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Batch Photo Uploads */}
+      <BatchPhotoUploader
+        moduleTitle="Module 8: Soil Profile & Pit Photo Documentation"
+        onPhotosUploaded={(photos) => {
+          logSystemAction('UPLOAD_BATCH_PHOTOS', 'soilSamples', `Uploaded ${photos.length} photos for soil pit profiles & core horizons.`);
+        }}
+      />
 
       {/* Modal */}
       {showModal && (

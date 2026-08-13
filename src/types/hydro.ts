@@ -49,6 +49,7 @@ export interface GisLayer {
   category: 'Groundwater' | 'Geology' | 'Terrain' | 'Hydrology' | 'Soil' | 'Land' | 'Field' | 'ERT';
   format: 'GeoJSON' | 'KML' | 'Shapefile' | 'CSV' | 'GeoTIFF';
   visible: boolean;
+  isOverlay?: boolean; // Overlay mode toggle for GIS map compositing
   opacity: number; // 0.0 to 1.0
   color: string;
   featureCount: number;

@@ -1,6 +1,6 @@
 {
   "name": "HYDRO-GIS",
-  "description": "Integrated Hydrogeological GIS Research & Groundwater Decision Support Platform",
+  "description": "Research-Grade Hydrogeological GIS & Aquifer Digital Twin Platform with Real-Time Multi-Provider Groundwater Intelligence",
   "requestFramePermissions": [
     "geolocation"
   ],

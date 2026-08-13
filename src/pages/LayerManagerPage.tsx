@@ -4,7 +4,7 @@ import { Layers, Eye, EyeOff, Sliders, Trash2, Download, Plus, FileSpreadsheet }
 import { downloadJsonFile } from '../utils/reportExporter';
 
 export const LayerManagerPage: React.FC = () => {
-  const { gisLayers, toggleLayerVisibility, setLayerOpacity, deleteGisLayer, setActiveModuleTab } = useHydroStore();
+  const { gisLayers, toggleLayerVisibility, toggleLayerOverlay, setLayerOpacity, deleteGisLayer, setActiveModuleTab } = useHydroStore();
 
   const handleExportLayer = (layer: any) => {
     downloadJsonFile(`${layer.name.toLowerCase().replace(/\s+/g, '_')}.geojson`, layer.data);
@@ -19,8 +19,8 @@ export const LayerManagerPage: React.FC = () => {
             <Layers className="w-4 h-4" />
             <span>Module 5: GIS Layer Manager</span>
           </div>
-          <h1 className="text-xl font-bold text-white mt-1">Geospatial Layer Stack & Symbology</h1>
-          <p className="text-xs text-slate-400">Control transparency, layer order, color styles, and export GeoJSON datasets.</p>
+          <h1 className="text-xl font-bold text-white mt-1">Geospatial Layer Stack & Overlay Symbology</h1>
+          <p className="text-xs text-slate-400">Control transparency, layer order, overlay compositing, color styles, and export GeoJSON datasets.</p>
         </div>
 
         <button
@@ -41,6 +41,7 @@ export const LayerManagerPage: React.FC = () => {
                 <th className="p-3">Layer Name</th>
                 <th className="p-3">Category</th>
                 <th className="p-3">Format</th>
+                <th className="p-3">Overlay Mode</th>
                 <th className="p-3">CRS</th>
                 <th className="p-3">Features</th>
                 <th className="p-3">Color</th>
@@ -56,6 +57,7 @@ export const LayerManagerPage: React.FC = () => {
                       <button
                         onClick={() => toggleLayerVisibility(layer.id)}
                         className="p-1 rounded text-slate-400 hover:text-white"
+                        title={layer.visible ? 'Hide Layer' : 'Show Layer'}
                       >
                         {layer.visible ? (
                           <Eye className="w-4 h-4 text-cyan-400" />
@@ -73,6 +75,18 @@ export const LayerManagerPage: React.FC = () => {
                     <span className="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-[10px] font-mono">
                       {layer.format}
                     </span>
+                  </td>
+                  <td className="p-3">
+                    <button
+                      onClick={() => toggleLayerOverlay(layer.id)}
+                      className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all border ${
+                        layer.isOverlay
+                          ? 'bg-purple-950 text-purple-300 border-purple-700 shadow-sm'
+                          : 'bg-slate-800 text-slate-400 border-slate-700 hover:text-slate-200'
+                      }`}
+                    >
+                      {layer.isOverlay ? '⚡ Overlay Active' : 'Normal Layer'}
+                    </button>
                   </td>
                   <td className="p-3 font-mono text-[11px] text-slate-400">{layer.crs}</td>
                   <td className="p-3 font-bold text-slate-200">{layer.featureCount}</td>

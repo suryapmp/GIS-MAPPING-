@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHydroStore } from '../stores/useHydroStore';
 import { UploadCloud, FileSpreadsheet, CheckCircle2, AlertCircle, FileCheck, Layers } from 'lucide-react';
+import { BatchPhotoUploader } from '../components/common/BatchPhotoUploader';
 
 export const DataImportPage: React.FC = () => {
-  const { addGisLayer, activeProjectId, setActiveModuleTab } = useHydroStore();
+  const { addGisLayer, activeProjectId, setActiveModuleTab, logSystemAction } = useHydroStore();
 
   const [layerName, setLayerName] = useState('');
   const [category, setCategory] = useState<'Groundwater' | 'Geology' | 'Terrain' | 'Hydrology' | 'Soil' | 'Land' | 'Field' | 'ERT'>('Groundwater');
@@ -265,6 +266,14 @@ export const DataImportPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* Batch Photo Uploads Section */}
+      <BatchPhotoUploader
+        moduleTitle="Module 6: Spatial Layer Field Photo Attachments & Provenance"
+        onPhotosUploaded={(photos) => {
+          logSystemAction('UPLOAD_BATCH_PHOTOS', 'dataImport', `Uploaded ${photos.length} photos for spatial dataset documentation.`);
+        }}
+      />
     </div>
   );
 };
